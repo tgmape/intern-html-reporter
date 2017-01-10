@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marko Demo</title>
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+    <link rel="stylesheet" href="style_materilize.css">
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script marko-init>
+        var util = require("./util");
+    </script>
+</head>
+
+<body>
+    <header>
+        <div class="navbar-fixed">
+            <nav class="top-nav yellow accent-4">
+                <div class="container ">
+                    <div class="container"><a href="#" data-activates="nav-mobile" class="button-collapse top-nav full hide-on-large-only"><i class="material-icons grey-text text-darken-4">view_list</i></a></div>
+                    <div class="nav-wrapper">
+                        <a class="page-title grey-text text-darken-4 small">Intern Test Result</a>
+                    </div>
+
+                </div>
+            </nav>
+        </div>
+        <ul id="nav-mobile" class="side-nav fixed z-depth-5 grey darken-4">
+            <li class="bold">
+                <a href="#summary" class="waves-effect waves-teal yellow-text text-accent-4">
+                    <i class="material-icons yellow-text text-accent-4 small">airplay</i>Summary</a>
+            </li>
+            <if (data.length)>
+                <for (platform in data)>
+                    <li class="bold">
+                        <a href="#${platform.id.replace(/ /g, '')}" class="waves-effect waves-teal yellow-text text-accent-4">
+                            <i class="material-icons yellow-text text-accent-4 small">zoom_in</i>${platform.name}</a>
+                    </li>
+                </for>
+            </if>
+        </ul>
+    </header>
+    <main>
+        <div class="container">
+            <div class="row">
+                <div id="dashboard">
+                    <div class="col s12 l12 m12">
+                        <ul class="collapsible popout" data-collapsible="accordion">
+                            <li>
+                                <div class="collapsible-header active"><i class="material-icons">input</i>Test Information</div>
+                                <div class="collapsible-body">
+                                    <table class="striped">
+                                        <tbody>
+                                            <tr>
+                                                <td>Duration</td>
+                                                <td class="green-text text-darken-2">${util.sumTime(data).totalTime} seconds</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col s12 l12 m12" id="summary">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title black-text col s12 l12 m12">All Platforms</span>
+                            <div class="col s6 l3 m6">
+                                <canvas id="pieChart0" width="400" height="400"></canvas>
+                            </div>
+                            <div class="col s6 l3 m6">
+                                <canvas id="barChart0" width="400" height="400"></canvas>
+                            </div>
+                            <table class="striped">
+                                <thead>
+                                    <tr>
+                                        <th>Platform</th>
+                                        <th>Passes</th>
+                                        <th>Failed</th>
+                                        <th>Skipped</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr for(platform in data)>
+                                        <td>${platform.name}</td>
+                                        <td class="green-text text-darken-2">${platform.numTests - platform.numFailedTests - platform.numSkippedTests}</td>
+                                        <td class="red-text text-darken-2">${platform.numFailedTests}</td>
+                                        <td class="teal-text text-darken-2">${platform.numSkippedTests}</td>
+                                        <td>${platform.numTests}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 l12 m12" id="${platform.id.replace(/ /g, '')}" for(platform in data | status-var=loop)>
+                    <div class="card col s12 l12 m12">
+                        <div class="card-content col s12 l12 m12">
+                            <span class="card-title black-text platform-chart col s12 l12 m12">${platform.name}</span>
+                            <div class="platform-chart col s6 l3 m6">
+                                <canvas id="pieChart${loop.getIndex()+1}"></canvas>
+                            </div>
+                            <!--<for (suite in platform.tests | status-var=loop)>-->
+                            <div class="platform-chart col s10 l9 m10">
+                                <ul class="collapsible popout" data-collapsible="expandable">
+                                    <li for(suite in platform.tests | status-var=loop)>
+                                        <div class="collapsible-header ipg-yellow ipg-dark-text">
+                                            <i class="material-icons">keyboard_arrow_down</i>
+                                            <span class="test-name">${suite.name} | </span> 
+                                            <span class="total-test">Tests : ${suite.numTests} | </span> 
+                                            <span class="fail-test" if(suite.numFailedTests)>Failed: ${suite.numFailedTests} | </span> 
+                                            <span class="skip-test"  if(suite.skipped)>Skipped: ${suite.numSkippedTests}</span>
+                                        </div>
+                                        <div class="collapsible-body">
+                                            <table class="striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Tests</th>
+                                                        <th>Status</th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                    <tr for(test in suite.tests)>
+                                                        <td>${test.name}</td>
+                                                        <td class="green-text text-darken-2" if(test.hasPassed)>Pass</td>
+                                                        <td if(test.error)>
+                                                            <a class="waves-effect waves-light btn red" href="#${test.id.replace(/ /g, '')}">Fail</a>
+                                                            <div id="${test.id.replace(/ /g, '')}" class="modal">
+                                                                <div class="modal-content">
+                                                                    <h3>${test.error.name}</h3>
+                                                                    <h5>Message:</h5>
+                                                                    <samp>${test.error.message}</samp>
+                                                                    <h5>Stack</h5>
+                                                                    <samp>${test.error.stack}</samp>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td class="skip-test" if(test.skipped)>Skip</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!--</for>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Activate the side menu 
+            $(".button-collapse").sideNav();
+            $('.modal').modal();
+
+            var data = $!{JSON.stringify(data) };
+
+            var totalTests = 0, totalPassed = 0, totalFailed = 0, totalSkipped = 0;
+            var platformName = [], platformNumTest = [],
+                platformFail = [], platformSkip = [],
+                platformPass = [], platformPassColor = []
+            platformFailColor = [], platformSkipColor = [];
+
+            for (var i = 0; i < data.length; i++) {
+                var platform = data[i];
+                platformName[i] = platform.name;
+                platformNumTest[i] = platform.numTests;
+                platformFail[i] = platform.numFailedTests;
+                platformSkip[i] = platform.numSkippedTests;
+                platformPass[i] = platformNumTest[i] - platformFail[i] - platformSkip[i];
+                totalTests = totalTests + platformNumTest[i];
+                totalFailed = totalFailed + platformFail[i];
+                totalSkipped = totalSkipped + platformSkip[i];
+                totalPassed = totalPassed + platformPass[i];
+                platformPassColor[i] = "#ffdc00";
+                platformFailColor[i] = "#212121";
+                platformSkipColor[i] = "gray";
+            }
+
+            var doughnutOptions = {
+                // title: {
+                //     display: true,
+                //     text: 'Test Status'
+                // },
+                legend: {
+                    display: false,
+                    fullWidth: false
+                },
+            };
+
+            var barOptions = {
+                legend: {
+                    display: false,
+                    fullWidth: false
+                },
+                scales: {
+                    xAxes: [{
+                        stacked: true,
+                        display: false
+                    }],
+                    yAxes: [{
+                        stacked: true
+                    }]
+                },
+                gridLines: {
+                    offsetGridLines: false
+                }
+            }
+
+            var ctxPieChart0 = document.getElementById("pieChart0");
+            var pieChart0 = new Chart(ctxPieChart0, {
+                type: 'doughnut',
+                animation: {
+                    animateScale: true
+                },
+                data: {
+                    labels: ["Pass", "Fail", "Skip"],
+                    datasets: [{
+                        data: [totalPassed, totalFailed, totalSkipped],
+                        backgroundColor: [
+                            'rgba(255, 214, 0, 1)',
+                            'rgba(33, 33, 33, 1)',
+                            'rgba(126, 126, 124, 1)',
+                        ],
+                        borderWidth: 3
+                    }]
+                },
+                options: doughnutOptions
+            });
+
+            for (var i = 0; i < data.length; i++) {
+                var platform = data[i];
+                var ctxPieChartx = document.getElementById("pieChart" + (i + 1));
+                var pieChartx = new Chart(ctxPieChartx, {
+                    type: 'doughnut',
+                    animation: {
+                        animateScale: true
+                    },
+                    data: {
+                        labels: ["Pass", "Fail", "Skip"],
+                        datasets: [{
+                            data: [
+                                platform.numTests - platform.numFailedTests - platform.numSkippedTests,
+                                platform.numFailedTests,
+                                platform.numSkippedTests
+                            ],
+                            backgroundColor: [
+                                'rgba(255, 214, 0, 1)',
+                                'rgba(33, 33, 33, 1)',
+                                'rgba(126, 126, 124, 1)',
+                            ],
+                            borderWidth: 3
+                        }]
+                    },
+                    options: doughnutOptions
+                });
+            }
+
+            var ctxBarChart0 = document.getElementById("barChart0");
+            var barChart0 = new Chart(ctxBarChart0, {
+                type: 'bar',
+                data: {
+                    labels: platformName,
+                    datasets: [
+                        {
+                            label: "Passed",
+                            backgroundColor: platformPassColor,
+                            borderWidth: 1,
+                            data: platformPass,
+                        },
+                        {
+                            label: "Failed",
+                            backgroundColor: platformFailColor,
+                            borderWidth: 1,
+                            data: platformFail,
+                        },
+                        {
+                            label: "Skipped",
+                            backgroundColor: platformSkipColor,
+                            borderWidth: 1,
+                            data: platformSkip,
+                        }
+                    ]
+                },
+                options: barOptions
+            });
+
+        });
+    </script>
+</body>
+
+</html>

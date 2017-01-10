@@ -1,0 +1,55 @@
+
+.summary-col{
+    display: table-cell;
+}
+
+.summary-label {
+    font-weight: 400;
+    color: #555;
+    text-transform: uppercase;
+    margin: 0;
+    text-align: center;
+}
+
+.summary-count {
+    font-family: 'Roboto Condensed';
+    font-weight: 900;
+    text-align: center;
+    margin: 0;
+}
+
+
+
+.suite-results thead tr th, .suite-results tbody tr td{
+    font-weight: 500;
+    font-size: medium;
+    color: #555;
+    margin: 0;
+    text-align: center;
+}
+
+
+#table-total td{
+    font-weight: bold;
+}
+
+.center {
+    margin-left:auto; 
+    margin-right:auto;
+  }
+
+.summary-passes, #passes{
+    color: #5cb85c;
+}
+
+.summary-failures, #failures{
+    color: #d9534f;
+}
+
+.summary-pending, #pending{
+    color: #5bc0de;
+}
+
+.suite-title{
+    width: initial;
+}

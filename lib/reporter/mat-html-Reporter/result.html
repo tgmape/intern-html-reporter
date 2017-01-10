@@ -1,0 +1,161 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Marko Demo</title> <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css"> <link rel="stylesheet" href="style_materilize.css"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> </head> <body> <header> <div class="navbar-fixed"> <nav class="top-nav yellow accent-4"> <div class="container "> <div class="container"><a href="#" data-activates="nav-mobile" class="button-collapse top-nav full hide-on-large-only"><i class="material-icons grey-text text-darken-4">view_list</i></a></div> <div class="nav-wrapper"> <a class="page-title grey-text text-darken-4 small">Intern Test Result</a> </div> </div> </nav> </div> <ul id="nav-mobile" class="side-nav fixed z-depth-5 grey darken-4"> <li class="bold"> <a href="#summary" class="waves-effect waves-teal yellow-text text-accent-4"> <i class="material-icons yellow-text text-accent-4 small">airplay</i>Summary</a> </li>   <li class="bold"> <a href="#chromeonanyplatform" class="waves-effect waves-teal yellow-text text-accent-4"> <i class="material-icons yellow-text text-accent-4 small">zoom_in</i>chrome on any platform</a> </li>   </ul> </header> <main> <div class="container"> <div class="row"> <div id="dashboard"> <div class="col s12 l12 m12"> <ul class="collapsible popout" data-collapsible="accordion"> <li> <div class="collapsible-header active"><i class="material-icons">input</i>Test Information</div> <div class="collapsible-body"> <table class="striped"> <tbody> <tr> <td>Duration</td> <td class="green-text text-darken-2">14 seconds</td> </tr> </tbody> </table> </div> </li> </ul> </div> </div> <div class="col s12 l12 m12" id="summary"> <div class="card"> <div class="card-content"> <span class="card-title black-text col s12 l12 m12">All Platforms</span> <div class="col s8 l4 m8"> <canvas id="pieChart0" width="400" height="400"></canvas> </div> <div class="col s8 l4 m8"> <canvas id="barChart0" width="400" height="400"></canvas> </div> <table class="striped"> <thead> <tr> <th>Platform</th> <th>Passes</th> <th>Failed</th> <th>Skipped</th> <th>Total</th> </tr> </thead> <tbody> <tr> <td>chrome on any platform</td> <td class="green-text text-darken-2">2</td> <td class="red-text text-darken-2">1</td> <td class="teal-text text-darken-2">0</td> <td>3</td> </tr> </tbody> </table> </div> </div> </div> <div class="col s12 l12 m12" id="chromeonanyplatform"> <div class="card col s12 l12 m12"> <div class="card-content col s12 l12 m12"> <span class="card-title black-text platform-chart col s12 l12 m12">chrome on any platform</span> <div class="platform-chart col s8 l4 m8"> <canvas id="pieChart1"></canvas> </div> <div class="platform-chart col s10 l12 m10"> <ul class="collapsible popout" data-collapsible="expandable"> <li> <div class="collapsible-header ipg-yellow ipg-dark-text"> <i class="material-icons">keyboard_arrow_down</i> <span class="test-name">intern js page | </span> <span class="total-test">Tests : 3 | </span> <span class="fail-test">Failed: 1 | </span>  </div> <div class="collapsible-body"> <table class="striped"> <thead> <tr> <th>Tests</th> <th>Status</th> </tr> </thead> <tbody> <tr> <td>Navigate to intern doc</td> <td class="green-text text-darken-2">Pass</td>   </tr><tr> <td>to see error page</td>  <td> <a class="waves-effect waves-light btn red" href="#chromeonanyplatform-internjspage-toseeerrorpage">Fail</a> <div id="chromeonanyplatform-internjspage-toseeerrorpage" class="modal"> <div class="modal-content"> <h3>AssertionError</h3> <h5>Message:</h5> <p>This is just to display error in report: expected 'Intern. The user guide' to equal 'Intern. The user guides'</p> <h5>Stack</h5> <p>AssertionError: This is just to display error in report: expected 'Intern. The user guide' to equal 'Intern. The user guides'
+    at Assertion.assertEqual (D:/Project/nodeJS/interjs/intern-custom-reporting/node_modules/intern/browser_modules/chai/chai.js:776:12)
+    at Assertion.ctx.(anonymous function) [as equal] (D:/Project/nodeJS/interjs/intern-custom-reporting/node_modules/intern/browser_modules/chai/chai.js:4192:25)
+    at Function.assert.strictEqual (D:/Project/nodeJS/interjs/intern-custom-reporting/node_modules/intern/browser_modules/chai/chai.js:2329:32)
+    at Command.&lt;anonymous> (D:/Project/nodeJS/interjs/intern-custom-reporting/tests/functional/google-page-spec.js:37:28)
+    at runCallback (D:\Project\nodeJS\interjs\intern-custom-reporting\node_modules\leadfoot\Command.js:526:31)
+    at Command.&lt;anonymous> (D:\Project\nodeJS\interjs\intern-custom-reporting\node_modules\leadfoot\Command.js:543:11)
+    at D:\Project\nodeJS\interjs\intern-custom-reporting\node_modules\dojo\Promise.js:156:41
+    at run (D:\Project\nodeJS\interjs\intern-custom-reporting\node_modules\dojo\Promise.js:51:33)
+    at D:\Project\nodeJS\interjs\intern-custom-reporting\node_modules\dojo\nextTick.js:35:17
+    at _combinedTickCallback (internal/process/next_tick.js:67:7)
+    at process._tickCallback (internal/process/next_tick.js:98:9)
+    at Command.then (D:\Project\nodeJS\interjs\intern-custom-reporting\node_modules\leadfoot\Command.js:542:10)
+    at Test.to see error page [as test] (D:/Project/nodeJS/interjs/intern-custom-reporting/tests/functional/google-page-spec.js:36:18)
+    at D:/Project/nodeJS/interjs/intern-custom-reporting/node_modules/intern/lib/Test.js:191:24
+    at D:/Project/nodeJS/interjs/intern-custom-reporting/node_modules/intern/browser_modules/dojo/Promise.js:156:41
+    at runCallbacks (D:/Project/nodeJS/interjs/intern-custom-reporting/node_modules/intern/browser_modules/dojo/Promise.js:19:22)
+    at D:/Project/nodeJS/interjs/intern-custom-reporting/node_modules/intern/browser_modules/dojo/Promise.js:103:21
+    at run (D:/Project/nodeJS/interjs/intern-custom-reporting/node_modules/intern/browser_modules/dojo/Promise.js:51:33)
+    at D:/Project/nodeJS/interjs/intern-custom-reporting/node_modules/intern/browser_modules/dojo/nextTick.js:35:17
+    at _combinedTickCallback (internal/process/next_tick.js:67:7)
+    at process._tickCallback (internal/process/next_tick.js:98:9)</p> </div> <div class="modal-footer"> <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a> </div> </div> </td>  </tr><tr> <td>Navigate to sitepen page</td> <td class="green-text text-darken-2">Pass</td>   </tr> </tbody> </table> </div> </li> </ul> </div> </div> </div> </div> </div> </div> </main> <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script> <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script> <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.js"></script> <script>
+        $(document).ready(function () {
+            // Activate the side menu 
+            $(".button-collapse").sideNav();
+            $('.modal').modal();
+
+            var data = [{"name":"chrome on any platform","id":"chrome on any platform","sessionId":"b3cecab7-ec05-4eba-9462-ad4182ad18c7","hasParent":false,"tests":[{"name":"intern js page","id":"chrome on any platform - intern js page","parentId":"chrome on any platform","sessionId":"b3cecab7-ec05-4eba-9462-ad4182ad18c7","hasParent":true,"tests":[{"name":"Navigate to intern doc","sessionId":"b3cecab7-ec05-4eba-9462-ad4182ad18c7","id":"chrome on any platform - intern js page - Navigate to intern doc","parentId":"chrome on any platform - intern js page","timeout":30000,"timeElapsed":5351,"hasPassed":true,"skipped":null,"error":null},{"name":"to see error page","sessionId":"b3cecab7-ec05-4eba-9462-ad4182ad18c7","id":"chrome on any platform - intern js page - to see error page","parentId":"chrome on any platform - intern js page","timeout":30000,"timeElapsed":2058,"hasPassed":false,"skipped":null,"error":{"name":"AssertionError","message":"This is just to display error in report: expected 'Intern. The user guide' to equal 'Intern. The user guides'","stack":"AssertionError: This is just to display error in report: expected 'Intern. The user guide' to equal 'Intern. The user guides'\n    at Assertion.assertEqual (D:/Project/nodeJS/interjs/intern-custom-reporting/node_modules/intern/browser_modules/chai/chai.js:776:12)\n    at Assertion.ctx.(anonymous function) [as equal] (D:/Project/nodeJS/interjs/intern-custom-reporting/node_modules/intern/browser_modules/chai/chai.js:4192:25)\n    at Function.assert.strictEqual (D:/Project/nodeJS/interjs/intern-custom-reporting/node_modules/intern/browser_modules/chai/chai.js:2329:32)\n    at Command.<anonymous> (D:/Project/nodeJS/interjs/intern-custom-reporting/tests/functional/google-page-spec.js:37:28)\n    at runCallback (D:\\Project\\nodeJS\\interjs\\intern-custom-reporting\\node_modules\\leadfoot\\Command.js:526:31)\n    at Command.<anonymous> (D:\\Project\\nodeJS\\interjs\\intern-custom-reporting\\node_modules\\leadfoot\\Command.js:543:11)\n    at D:\\Project\\nodeJS\\interjs\\intern-custom-reporting\\node_modules\\dojo\\Promise.js:156:41\n    at run (D:\\Project\\nodeJS\\interjs\\intern-custom-reporting\\node_modules\\dojo\\Promise.js:51:33)\n    at D:\\Project\\nodeJS\\interjs\\intern-custom-reporting\\node_modules\\dojo\\nextTick.js:35:17\n    at _combinedTickCallback (internal/process/next_tick.js:67:7)\n    at process._tickCallback (internal/process/next_tick.js:98:9)\n    at Command.then (D:\\Project\\nodeJS\\interjs\\intern-custom-reporting\\node_modules\\leadfoot\\Command.js:542:10)\n    at Test.to see error page [as test] (D:/Project/nodeJS/interjs/intern-custom-reporting/tests/functional/google-page-spec.js:36:18)\n    at D:/Project/nodeJS/interjs/intern-custom-reporting/node_modules/intern/lib/Test.js:191:24\n    at D:/Project/nodeJS/interjs/intern-custom-reporting/node_modules/intern/browser_modules/dojo/Promise.js:156:41\n    at runCallbacks (D:/Project/nodeJS/interjs/intern-custom-reporting/node_modules/intern/browser_modules/dojo/Promise.js:19:22)\n    at D:/Project/nodeJS/interjs/intern-custom-reporting/node_modules/intern/browser_modules/dojo/Promise.js:103:21\n    at run (D:/Project/nodeJS/interjs/intern-custom-reporting/node_modules/intern/browser_modules/dojo/Promise.js:51:33)\n    at D:/Project/nodeJS/interjs/intern-custom-reporting/node_modules/intern/browser_modules/dojo/nextTick.js:35:17\n    at _combinedTickCallback (internal/process/next_tick.js:67:7)\n    at process._tickCallback (internal/process/next_tick.js:98:9)","showDiff":true,"actual":"Intern. The user guide","expected":"Intern. The user guides"}},{"name":"Navigate to sitepen page","sessionId":"b3cecab7-ec05-4eba-9462-ad4182ad18c7","id":"chrome on any platform - intern js page - Navigate to sitepen page","parentId":"chrome on any platform - intern js page","timeout":30000,"timeElapsed":6541,"hasPassed":true,"skipped":null,"error":null}],"timeElapsed":14016,"numTests":3,"numFailedTests":1,"numSkippedTests":0,"error":null}],"timeElapsed":14018,"numTests":3,"numFailedTests":1,"numSkippedTests":0,"error":null}];
+
+            var totalTests = 0, totalPassed = 0, totalFailed = 0, totalSkipped = 0;
+            var platformName = [], platformNumTest = [],
+                platformFail = [], platformSkip = [],
+                platformPass = [], platformPassColor = []
+            platformFailColor = [], platformSkipColor = [];
+
+            for (var i = 0; i < data.length; i++) {
+                var platform = data[i];
+                platformName[i] = platform.name;
+                platformNumTest[i] = platform.numTests;
+                platformFail[i] = platform.numFailedTests;
+                platformSkip[i] = platform.numSkippedTests;
+                platformPass[i] = platformNumTest[i] - platformFail[i] - platformSkip[i];
+                totalTests = totalTests + platformNumTest[i];
+                totalFailed = totalFailed + platformFail[i];
+                totalSkipped = totalSkipped + platformSkip[i];
+                totalPassed = totalPassed + platformPass[i];
+                platformPassColor[i] = "#ffdc00";
+                platformFailColor[i] = "#212121";
+                platformSkipColor[i] = "gray";
+            }
+
+            var doughnutOptions = {
+                // title: {
+                //     display: true,
+                //     text: 'Test Status'
+                // },
+                legend: {
+                    display: false,
+                    fullWidth: false
+                },
+            };
+
+            var barOptions = {
+                legend: {
+                    display: false,
+                    fullWidth: false
+                },
+                scales: {
+                    xAxes: [{
+                        stacked: true,
+                        display: false
+                    }],
+                    yAxes: [{
+                        stacked: true
+                    }]
+                },
+                gridLines: {
+                    offsetGridLines: false
+                }
+            }
+
+            var ctxPieChart0 = document.getElementById("pieChart0");
+            var pieChart0 = new Chart(ctxPieChart0, {
+                type: 'doughnut',
+                animation: {
+                    animateScale: true
+                },
+                data: {
+                    labels: ["Pass", "Fail", "Skip"],
+                    datasets: [{
+                        data: [totalPassed, totalFailed, totalSkipped],
+                        backgroundColor: [
+                            'rgba(255, 214, 0, 1)',
+                            'rgba(33, 33, 33, 1)',
+                            'rgba(126, 126, 124, 1)',
+                        ],
+                        borderWidth: 3
+                    }]
+                },
+                options: doughnutOptions
+            });
+
+            for (var i = 0; i < data.length; i++) {
+                var platform = data[i];
+                var ctxPieChartx = document.getElementById("pieChart" + (i + 1));
+                var pieChartx = new Chart(ctxPieChartx, {
+                    type: 'doughnut',
+                    animation: {
+                        animateScale: true
+                    },
+                    data: {
+                        labels: ["Pass", "Fail", "Skip"],
+                        datasets: [{
+                            data: [
+                                platform.numTests - platform.numFailedTests - platform.numSkippedTests,
+                                platform.numFailedTests,
+                                platform.numSkippedTests
+                            ],
+                            backgroundColor: [
+                                'rgba(255, 214, 0, 1)',
+                                'rgba(33, 33, 33, 1)',
+                                'rgba(126, 126, 124, 1)',
+                            ],
+                            borderWidth: 3
+                        }]
+                    },
+                    options: doughnutOptions
+                });
+            }
+
+            var ctxBarChart0 = document.getElementById("barChart0");
+            var barChart0 = new Chart(ctxBarChart0, {
+                type: 'bar',
+                data: {
+                    labels: platformName,
+                    datasets: [
+                        {
+                            label: "Passed",
+                            backgroundColor: platformPassColor,
+                            borderWidth: 1,
+                            data: platformPass,
+                        },
+                        {
+                            label: "Failed",
+                            backgroundColor: platformFailColor,
+                            borderWidth: 1,
+                            data: platformFail,
+                        },
+                        {
+                            label: "Skipped",
+                            backgroundColor: platformSkipColor,
+                            borderWidth: 1,
+                            data: platformSkip,
+                        }
+                    ]
+                },
+                options: barOptions
+            });
+
+        });
+    </script> </body> </html>
